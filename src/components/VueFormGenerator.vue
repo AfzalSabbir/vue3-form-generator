@@ -23,6 +23,7 @@
       </kbd>
       <div class="col-4">
         <fieldset v-if="group.fields" :is="tag">
+          <legend>{{ group.legend }}</legend>
           <vue-form-generator-fieldset :fields="group.fields"
                                        :model="model"
                                        :options="options">
@@ -84,34 +85,8 @@ export default {
 
   data() {
     return {
-      name       : '',
-      status     : 'Deleted',
-      statusList2: [
-        'Active',
-        'Inactive',
-        'Blocked',
-        'Deleted',
-      ],
-      statusList : [
-        {
-          label: 'Active',
-          value: 'Active',
-        },
-        {
-          label: 'Inactive',
-          value: 'Inactive',
-        },
-        {
-          label: 'Blocked',
-          value: 'Blocked',
-        },
-        {
-          label: 'Deleted',
-          value: 'Deleted',
-        },
-      ],
-      vfg        : this,
-      errors     : [], // Validation errors
+      vfg   : this,
+      errors: [], // Validation errors
     };
   },
   methods: {
