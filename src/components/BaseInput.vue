@@ -38,9 +38,9 @@ export default {
       default: null,
     },
     field     : {
-      type   : Object,
+      type    : Object,
       required: true,
-      default: () => ({}),
+      default : () => ({}),
     },
   },
 

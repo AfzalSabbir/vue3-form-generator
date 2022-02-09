@@ -1,21 +1,19 @@
 <template>
   <template v-for="field in fields">
-    <div>
-      <component :is="getInputName(field.type)"
-                 v-model:modelValue="model[field.model]"
-                 :readonly="field.readonly"
-                 :disabled="field.disabled"
-                 :featured="field.featured"
-                 :placeholder="field.placeholder"
-                 :field="field"
-                 :id="field.id"
-                 :name="field.name"
-                 :min="field.min"
-                 :options="field.values"
-                 :label="field.label"
-                 :className="getClassName(field)"
-                 :type="getInputType(field)"/>
-    </div>
+    <component :is="getInputName(field.type)"
+               v-model:modelValue="model[field.model]"
+               :readonly="field.readonly"
+               :disabled="field.disabled"
+               :featured="field.featured"
+               :placeholder="field.placeholder"
+               :field="field"
+               :id="field.id"
+               :name="field.name"
+               :min="field.min"
+               :options="field.values"
+               :label="field.label"
+               :className="getClassName(field)"
+               :type="getInputType(field)"/>
   </template>
 </template>
 
