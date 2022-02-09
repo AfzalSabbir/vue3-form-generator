@@ -27,6 +27,7 @@ export default {
         color   : 'Red',
         timeout : 34,
       },
+
       schema     : {
         fields: [
           {
@@ -57,10 +58,11 @@ export default {
             //validator: VueFormGenerator.validators.string,
           },
           {
-            type  : 'select',
-            label : 'Skills',
-            model : 'skills',
-            values: ['Javascript', 'VueJS', 'CSS3', 'HTML5'],
+            type    : 'select',
+            label   : 'Skills',
+            model   : 'skills',
+            multiple: false,
+            values  : ['Javascript', 'VueJS', 'CSS3', 'HTML5'],
           },
           {
             type       : 'input',
@@ -135,6 +137,7 @@ export default {
           },
         ],
       },
+
       formOptions: {
         validateAfterLoad   : true,
         validateAfterChanged: true,

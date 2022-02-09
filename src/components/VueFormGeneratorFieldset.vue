@@ -4,6 +4,7 @@
                v-model:modelValue="model[field.model]"
                :readonly="field.readonly"
                :required="field.required"
+               :multiple="field.multiple"
                :disabled="field.disabled"
                :featured="field.featured"
                :placeholder="field.placeholder"
