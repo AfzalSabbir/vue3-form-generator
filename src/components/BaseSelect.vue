@@ -4,8 +4,8 @@
 
     <select :class="[className, errorClassName]"
             v-bind="attributes"
-            :value="modelValue"
-            @change="$emit('update:modelValue', $event.target.value)">
+            v-model="selectedValue"
+            @change="$emit('update:modelValue', selectedValue)">
       <option :value="option.value ? option.value : option"
               v-for="option in options">
         {{ option.label ? option.label : option }}
@@ -57,9 +57,16 @@ export default {
   },
 
   setup(props, {attrs}) {
-    let {errors} = props;
-
+    let {errors}     = props;
     const attributes = ref(attrs);
+
+    let modelValue = props.modelValue;
+    // multiple and not object
+    if (props.field.multiple && !(_.isArray(props.modelValue || _.isObject(props.modelValue)))) {
+      modelValue = _.castArray(props.modelValue);
+      console.log(_.castArray(props.modelValue), 'aaaa')
+    }
+    const selectedValue = ref(modelValue);
 
     // remove type from attributes
     if (attributes.value) {
@@ -69,6 +76,7 @@ export default {
     return {
       errorClassName: Helpers().getErrorClassName(errors),
       attributes,
+      selectedValue,
     };
   },
 }
