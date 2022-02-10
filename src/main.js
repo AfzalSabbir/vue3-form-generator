@@ -1,13 +1,13 @@
-import {createApp}             from 'vue'
-import App                     from './App.vue'
-import router                  from './router'
-import store                   from './store'
-import {camelCase, upperFirst} from 'lodash'
+import {createApp}             from 'vue';
+import App                     from './App.vue';
+import router                  from './router';
+import store                   from './store';
+import {camelCase, upperFirst} from 'lodash';
 import ShowErrorMessages       from './components/ShowErrorMessages';
-import VueFormGenerator        from './components/VueFormGenerator.vue'
+import VueFormGenerator        from './components/VueFormGenerator.vue';
 
-import './assets/styles/scss/main.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/styles/scss/main.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const app = createApp(App);
 
@@ -33,4 +33,4 @@ requiredComponents.keys().forEach(fileName => {
 app.component('ShowErrorMessages', ShowErrorMessages);
 app.component('VueFormGenerator', VueFormGenerator);
 
-app.use(store).use(router).mount('#app')
+app.use(store).use(router).mount('#app');
