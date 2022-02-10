@@ -7,7 +7,7 @@
             v-bind="attrs"
             @input="$emit('update:modelValue', $event.target.value)">{{ modelValue }}</textarea>
 
-  <ShowErrorMessages :errors="errors" :error="error"/>
+  <ShowErrorMessages :errors="errors || []" :error="error || ``"/>
 </template>
 
 <script setup>
@@ -25,27 +25,19 @@ const props = defineProps({
     type   : String,
     default: null,
   },
-  className : {
-    type   : String,
-    default: '',
-  },
-  errors    : {
-    type   : Array,
-    default: [],
-  },
-  error     : {
-    type   : String,
-    default: null,
-  },
   field     : {
     type    : Object,
     required: true,
     default : () => ({}),
   },
+  className : {
+    type   : String,
+    default: '',
+  },
 });
 
-let {errors}         = props;
-const errorClassName = Helpers().getErrorClassName(errors)
+let {errors, error}  = props;
+const errorClassName = 'is-invalid';
 </script>
 
 <style scoped>

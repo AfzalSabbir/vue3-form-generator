@@ -8,7 +8,7 @@
     {{ label }}
   </label>
 
-  <ShowErrorMessages :errors="errors" :error="error"/>
+  <ShowErrorMessages :errors="errors || []" :error="error || ``"/>
 </template>
 
 <script setup>
@@ -24,29 +24,20 @@ const props = defineProps({
     type   : Boolean,
     default: false,
   },
-  className : {
-    type   : String,
-    default: '',
-  },
-  errors    : {
-    type   : Array,
-    default: [],
-  },
-  error     : {
-    type   : String,
-    default: null,
-  },
   field     : {
     type    : Object,
     required: true,
     default : () => ({}),
   },
+  className : {
+    type   : String,
+    default: '',
+  },
 });
 const attrs = useAttrs();
 
-let {errors}         = props;
-let {error}          = props;
-const errorClassName = Helpers().getErrorClassName(error ?? errors)
+let {errors, error}  = props;
+const errorClassName = 'is-invalid';
 </script>
 
 <style scoped>

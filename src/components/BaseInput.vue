@@ -7,14 +7,14 @@
          @input="$emit('update:modelValue', inputValue)"
          v-model="inputValue"/>
 
-  <ShowErrorMessages :errors="errors" :error="error"/>
+  <ShowErrorMessages :errors="errors || []" :error="error || ``"/>
 </template>
 
 <script setup>
 import Helpers                from "../tools/Helpers";
 import {ref, useAttrs, watch} from "vue";
 
-const props          = defineProps({
+const props = defineProps({
   modelValue: {
     type    : [String, Number],
     required: true,
@@ -23,32 +23,24 @@ const props          = defineProps({
     type   : String,
     default: null,
   },
-  className : {
-    type   : String,
-    default: '',
-  },
-  errors    : {
-    type   : Array,
-    default: [],
-  },
-  error     : {
-    type   : String,
-    default: null,
-  },
   field     : {
     type    : Object,
     required: true,
     default : () => ({}),
   },
+  className : {
+    type   : String,
+    default: '',
+  },
 });
-const attrs          = useAttrs();
+const attrs = useAttrs();
 
-let {errors} = props;
-const value  = props.modelValue;
+let {errors, error} = props;
+const value         = props.modelValue;
 
-const type       = attrs.type;
-const inputValue = ref(value);
-const errorClassName = Helpers().getErrorClassName(errors);
+const type           = attrs.type;
+const inputValue     = ref(value);
+const errorClassName = 'is-invalid';
 
 watch(() => inputValue.value, (newValue) => {
       if (type === 'number') {
@@ -56,6 +48,8 @@ watch(() => inputValue.value, (newValue) => {
       }
     },
 );
+
+error = "This field is required";
 </script>
 
 <style scoped>

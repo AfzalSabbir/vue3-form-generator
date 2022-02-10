@@ -63,8 +63,8 @@ const props = defineProps({
   },
 });
 
-const getInputName = ({type}) => {
-  return `base-${type}`;
+const getInputName = (field) => {
+  return `base-${field.type}`;
 };
 const getInputType = (field) => {
   return field.inputType ?? field.type ?? 'text';

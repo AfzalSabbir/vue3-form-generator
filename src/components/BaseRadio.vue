@@ -1,5 +1,5 @@
 <template>
-  <input :class="[errorClassName]"
+  <input :class="[className, errorClassName]"
          :value="value"
          :id="$attrs.id"
          :checked="modelValue === value"
@@ -9,7 +9,7 @@
     {{ label }}
   </label>
 
-  <ShowErrorMessages :errors="errors" :error="error"/>
+  <ShowErrorMessages :errors="errors || []" :error="error || ``"/>
 </template>
 
 <script setup>
@@ -32,23 +32,19 @@ const props = defineProps({
     type    : String,
     required: true,
   },
-  errors    : {
-    type   : Array,
-    default: [],
-  },
-  error     : {
-    type   : String,
-    default: null,
-  },
   field     : {
     type    : Object,
     required: true,
     default : () => ({}),
   },
+  className : {
+    type   : String,
+    default: '',
+  },
 });
 
-let {errors}         = props;
-const errorClassName = Helpers().getErrorClassName(errors)
+let {errors, error}  = props;
+const errorClassName = 'is-invalid';
 </script>
 
 <style scoped>

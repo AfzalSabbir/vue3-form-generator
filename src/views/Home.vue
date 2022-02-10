@@ -44,6 +44,8 @@ export default {
             placeholder: 'Your name',
             featured   : true,
             required   : true,
+            min        : 3,
+            max        : 12,
           },
           {
             type     : 'input',

@@ -12,11 +12,10 @@
     </option>
   </select>
 
-  <ShowErrorMessages :errors="errors" :error="error"/>
+  <ShowErrorMessages :errors="errors || []" :error="error || ``"/>
 </template>
 
 <script setup>
-import Helpers         from "../tools/Helpers";
 import {ref, useAttrs} from "vue";
 import _               from "lodash";
 
@@ -30,32 +29,24 @@ const props = defineProps({
     type   : String,
     default: '',
   },
-  className : {
-    type   : String,
-    default: '',
-  },
   options   : {
     type   : Array,
     default: [],
-  },
-  errors    : {
-    type   : Array,
-    default: [],
-  },
-  error     : {
-    type   : String,
-    default: null,
   },
   field     : {
     type    : Object,
     required: true,
     default : () => ({}),
   },
+  className : {
+    type   : String,
+    default: '',
+  },
 });
 const attrs = useAttrs();
 
-let {errors}     = props;
-const attributes = ref(attrs);
+let {errors, error} = props;
+const attributes    = ref(attrs);
 
 let modelValue = props.modelValue;
 // multiple and not object
@@ -68,7 +59,7 @@ const selectedValue = ref(modelValue);
 if (attributes.value) {
   attributes.value = _.omit(attributes.value, 'type');
 }
-const errorClassName = Helpers().getErrorClassName(errors);
+const errorClassName = 'is-invalid';
 </script>
 
 <style scoped>
