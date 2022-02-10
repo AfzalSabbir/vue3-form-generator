@@ -1,58 +1,51 @@
 <template>
-  <label v-if="label" :for="uuid" :class="errorClassName">
+  <label v-if="label" :for="attrs.id" :class="errorClassName">
     {{ label }}
   </label>
-  <textarea :id="uuid"
+  <textarea :id="attrs.id"
             :class="[className, errorClassName]"
-            v-bind="$attrs"
+            v-bind="attrs"
             @input="$emit('update:modelValue', $event.target.value)">{{ modelValue }}</textarea>
 
   <ShowErrorMessages :errors="errors" :error="error"/>
 </template>
 
-<script>
-import Helpers from "../tools/Helpers";
-import Uuid    from "../tools/UUID";
+<script setup>
+import Helpers    from "../tools/Helpers";
+import {useAttrs} from "vue";
 
-export default {
-  name : "BaseInput",
-  props: {
-    modelValue: {
-      type    : [String, Number],
-      required: true,
-    },
-    label     : {
-      type   : String,
-      default: null,
-    },
-    className : {
-      type   : String,
-      default: '',
-    },
-    errors    : {
-      type   : Array,
-      default: [],
-    },
-    error     : {
-      type   : String,
-      default: null,
-    },
-    field     : {
-      type    : Object,
-      required: true,
-      default : () => ({}),
-    },
-  },
+const attrs = useAttrs();
 
-  setup(props) {
-    let {errors} = props;
-    const uuid   = Uuid().generate();
-    return {
-      uuid,
-      errorClassName: Helpers().getErrorClassName(errors),
-    };
+const props = defineProps({
+  modelValue: {
+    type    : [String, Number],
+    required: true,
   },
-}
+  label     : {
+    type   : String,
+    default: null,
+  },
+  className : {
+    type   : String,
+    default: '',
+  },
+  errors    : {
+    type   : Array,
+    default: [],
+  },
+  error     : {
+    type   : String,
+    default: null,
+  },
+  field     : {
+    type    : Object,
+    required: true,
+    default : () => ({}),
+  },
+});
+
+let {errors}         = props;
+const errorClassName = Helpers().getErrorClassName(errors)
 </script>
 
 <style scoped>

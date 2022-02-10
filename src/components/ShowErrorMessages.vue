@@ -11,24 +11,24 @@
   </div>
 </template>
 
-<script>
-export default {
-  name : "ShowErrorMessages",
-  props: {
-    errors: {
-      type   : Array,
-      default: [],
-    },
-    error : {
-      type   : String,
-      default: null,
-    },
-    target: {
-      type   : String,
-      default: 'message',
-    },
+<script setup>
+
+import {defineProps} from "vue";
+
+const props = defineProps({
+  errors: {
+    type   : Array,
+    default: [],
   },
-}
+  error : {
+    type   : String,
+    default: null,
+  },
+  target: {
+    type   : String,
+    default: 'message',
+  },
+});
 </script>
 
 <style scoped>

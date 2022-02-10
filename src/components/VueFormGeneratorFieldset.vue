@@ -1,110 +1,77 @@
 <template>
-  <template v-for="field in fields">
-    <component :is="getInputName(field.type)"
-               v-model:modelValue="model[field.model]"
-               :readonly="field.readonly"
-               :required="field.required"
-               :multiple="field.multiple"
-               :disabled="field.disabled"
-               :featured="field.featured"
-               :placeholder="field.placeholder"
-               :field="field"
-               :id="field.id"
-               :name="field.name"
-               :min="field.min"
-               :rows="field.rows"
-               :options="field.values"
-               :label="field.label"
-               :className="getClassName(field)"
-               :type="getInputType(field)"/>
+  <template v-for="(field, index) in fields">
+    <div class="form-group">
+      <component :is="getInputName(field)"
+                 v-model:modelValue="model[field.model]"
+                 :readonly="field.readonly"
+                 :required="field.required"
+                 :multiple="field.multiple"
+                 :disabled="field.disabled"
+                 :featured="field.featured"
+                 :placeholder="field.placeholder"
+                 :field="field"
+                 :id="field.id || (uuid + '-' + index)"
+                 :name="field.name || field.model"
+                 :min="field.min"
+                 :rows="field.rows"
+                 :options="field.values"
+                 :label="field.label"
+                 :className="getClassName(field)"
+                 :type="getInputType(field)"/>
+    </div>
   </template>
 </template>
 
-<script>
-export default {
-  name : "VueFormGeneratorFieldset",
-  props: {
-    fields: Object,
+<script setup>
+import {v4 as uuidv4} from 'uuid';
 
-    model: Object,
+const props = defineProps({
+  fields: Object,
 
-    options: {
-      type: Object,
-      default() {
-        return {
-          validateAfterLoad     : false,
-          validateAfterChanged  : false,
-          fieldIdPrefix         : "",
-          validateAsync         : false,
-          validationErrorClass  : "error",
-          validationSuccessClass: "",
-        };
-      },
-    },
+  model: Object,
 
-    multiple: {
-      type   : Boolean,
-      default: false,
-    },
-
-    isNewModel: {
-      type   : Boolean,
-      default: false,
-    },
-
-    tag: {
-      type     : String,
-      default  : "fieldset",
-      validator: function (value) {
-        return value.length > 0;
-      },
+  options: {
+    type: Object,
+    default() {
+      return {
+        validateAfterLoad     : false,
+        validateAfterChanged  : false,
+        fieldIdPrefix         : "",
+        validateAsync         : false,
+        validationErrorClass  : "error",
+        validationSuccessClass: "",
+      };
     },
   },
 
-  data() {
-    return {
-      name       : '',
-      status     : 'Deleted',
-      statusList2: [
-        'Active',
-        'Inactive',
-        'Blocked',
-        'Deleted',
-      ],
-      statusList : [
-        {
-          label: 'Active',
-          value: 'Active',
-        },
-        {
-          label: 'Inactive',
-          value: 'Inactive',
-        },
-        {
-          label: 'Blocked',
-          value: 'Blocked',
-        },
-        {
-          label: 'Deleted',
-          value: 'Deleted',
-        },
-      ],
-      vfg        : this,
-      errors     : [], // Validation errors
-    };
+  multiple: {
+    type   : Boolean,
+    default: false,
   },
 
-  methods: {
-    // dynamic base component return
-    getInputName(input) {
-      return `base-${input}`;
-    },
-    getInputType(field) {
-      return field.inputType ?? field.type ?? 'text';
-    },
-    getClassName(field) {
-      return this.getInputType(field) !== 'checkbox' ? 'form-control' : '';
+  isNewModel: {
+    type   : Boolean,
+    default: false,
+  },
+
+  tag: {
+    type     : String,
+    default  : "fieldset",
+    validator: function (value) {
+      return value.length > 0;
     },
   },
+});
+
+const getInputName = ({type}) => {
+  return `base-${type}`;
 };
+const getInputType = (field) => {
+  return field.inputType ?? field.type ?? 'text';
+};
+const getClassName = (field) => {
+  return getInputType(field) !== 'checkbox' ? 'form-control' : '';
+};
+
+const uuid = uuidv4();
 </script>

@@ -39,67 +39,44 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import VueFormGeneratorFieldset from "@/components/VueFormGeneratorFieldset";
 
-export default {
-  name      : "VueFormGenerator",
-  components: {VueFormGeneratorFieldset},
-  props     : {
-    schema: Object,
+const props = defineProps({
+  schema: Object,
 
-    model: Object,
+  model: Object,
 
-    options: {
-      type: Object,
-      default() {
-        return {
-          validateAfterLoad     : false,
-          validateAfterChanged  : false,
-          fieldIdPrefix         : "",
-          validateAsync         : false,
-          validationErrorClass  : "error",
-          validationSuccessClass: "",
-        };
-      },
-    },
-
-    multiple: {
-      type   : Boolean,
-      default: false,
-    },
-
-    isNewModel: {
-      type   : Boolean,
-      default: false,
-    },
-
-    tag: {
-      type     : String,
-      default  : "fieldset",
-      validator: function (value) {
-        return value.length > 0;
-      },
+  options: {
+    type: Object,
+    default() {
+      return {
+        validateAfterLoad     : false,
+        validateAfterChanged  : false,
+        fieldIdPrefix         : "",
+        validateAsync         : false,
+        validationErrorClass  : "error",
+        validationSuccessClass: "",
+      };
     },
   },
 
-  data() {
-    return {
-      vfg   : this,
-      errors: [], // Validation errors
-    };
+  multiple: {
+    type   : Boolean,
+    default: false,
   },
-  methods: {
-    // dynamic base component return
-    getInputName(input) {
-      return `base-${input}`;
-    },
-    getInputType(field) {
-      return field.inputType ?? field.type ?? 'text';
-    },
-    getClassName(field) {
-      return this.getInputType(field) !== 'checkbox' ? 'form-control' : '';
+
+  isNewModel: {
+    type   : Boolean,
+    default: false,
+  },
+
+  tag: {
+    type     : String,
+    default  : "fieldset",
+    validator: function (value) {
+      return value.length > 0;
     },
   },
-};
+});
 </script>

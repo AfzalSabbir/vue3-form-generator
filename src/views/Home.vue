@@ -7,28 +7,26 @@
 </template>
 
 <script>
-//import VueFormGenerator from 'vue-form-generator'
-
 export default {
   name: 'Home',
   data() {
     return {
-      model      : {
-        id      : 1,
-        name    : 'John Doe',
-        password: 'J0hnD03!x4',
-        //skills  : 'Javascript',
-        skills  : ['Javascript', 'VueJS'],
-        email   : 'john.doe@gmail.com',
-        status  : true,
-        age     : 23,
-        bio     : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos, quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos, quisquam.',
-        username: 'john.doe',
-        color   : 'Red',
-        timeout : 34,
+      model: {
+        id           : 1,
+        name         : 'John Doe',
+        password     : 'J0hnD03!x4',
+        maritalStatus: 'married',
+        skills       : ['Javascript', 'VueJS'],
+        email        : 'john.doe@gmail.com',
+        status       : true,
+        age          : 23,
+        username     : 'john.doe',
+        color        : 'Red',
+        timeout      : 34,
+        bio          : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos, quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos, quisquam.',
       },
 
-      schema     : {
+      schema: {
         fields: [
           {
             type     : 'input',
@@ -63,6 +61,12 @@ export default {
             model   : 'skills',
             multiple: true,
             values  : ['Javascript', 'VueJS', 'CSS3', 'HTML5'],
+          },
+          {
+            type  : 'radio-group',
+            label : 'Marital Status',
+            model : 'maritalStatus',
+            values: ['married', 'single', 'divorced', 'widowed'],
           },
           {
             type       : 'input',
@@ -149,11 +153,4 @@ export default {
 </script>
 
 <style>
-.panel-body {
-  display         : flex;
-  width           : 50%;
-  justify-content : center;
-  align-items     : center;
-  margin          : auto;
-}
 </style>
