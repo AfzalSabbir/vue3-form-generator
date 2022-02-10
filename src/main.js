@@ -3,7 +3,7 @@ import App                     from './App.vue'
 import router                  from './router'
 import store                   from './store'
 import {camelCase, upperFirst} from 'lodash'
-import ShowErrorMessages       from "./components/ShowErrorMessages";
+import ShowErrorMessages       from './components/ShowErrorMessages';
 import VueFormGenerator        from './components/VueFormGenerator.vue'
 
 import './assets/styles/scss/main.css'
