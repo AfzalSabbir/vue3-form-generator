@@ -1,18 +1,7 @@
-<template>
-  <label v-if="label" :for="attrs.id" :class="errorClassName">
-    {{ label }}
-  </label>
-  <input :id="attrs.id" :class="[className, errorClassName]"
-         v-bind="attrs"
-         @input="$emit('update:modelValue', inputValue)"
-         v-model="inputValue"/>
-
-  <ShowErrorMessages :errors="errors || []" :error="error || ``"/>
-</template>
-
 <script setup>
-import Helpers                from "../tools/Helpers";
 import {ref, useAttrs, watch} from "vue";
+import {useField, useForm}    from "vee-validate";
+import * as yup               from "yup";
 
 const props = defineProps({
   modelValue: {
@@ -35,22 +24,71 @@ const props = defineProps({
 });
 const attrs = useAttrs();
 
-let {errors, error} = props;
-const value         = props.modelValue;
+let {errorsList, error} = props;
+const value             = props.modelValue;
 
 const type           = attrs.type;
 const inputValue     = ref(value);
-const errorClassName = 'is-invalid';
+const errorClassName = ref('');
 
-watch(() => inputValue.value, (newValue) => {
+
+// Validation
+let validator = yup[type !== 'number' ? 'string' : type]();
+if (props.field?.required) {
+  validator = validator.required('This field is required');
+  console.log('required')
+}
+if (props.field?.min) {
+  validator = validator.min(props.field.min, 'This field must be at least ${min}');
+}
+if (props.field?.max) {
+  validator = validator.max(props.field.max, 'This field must be at most ${max}');
+}
+if (props.field?.inputType === 'email') {
+  validator = validator.email('This field must be a valid email');
+}
+let shape              = {
+  inpV: validator,
+};
+const validationSchema = yup.object().shape(shape);
+const initialValues    = {
+  inpV: inputValue.value,
+}
+const {errors}         = useForm(
+    {
+      validationSchema,
+      initialValues,
+    },
+);
+const {value: inpV}    = useField('inpV');
+watch(() => errors.value.inpV, (newValue) => {
+  if (!!newValue) {
+    errorClassName.value = 'is-invalid';
+  } else {
+    errorClassName.value = '';
+  }
+});
+
+
+watch(() => inpV.value, (newValue) => {
       if (type === 'number') {
-        inputValue.value = parseInt(newValue);
+        inpV.value = parseInt(newValue);
       }
     },
 );
-
-error = "This field is required";
 </script>
+
+<template>
+  <label v-if="label" :for="attrs.id" :class="errorClassName">
+    {{ label }}
+  </label>
+  <input :id="attrs.id" :class="[className, errorClassName]"
+         v-bind="attrs"
+         @input="$emit('update:modelValue', inpV)"
+         v-model="inpV"/>
+
+  <ShowErrorMessages :errors="errorsList || []" :error="errors.inpV || ``"/>
+</template>
 
 <style scoped>
 
