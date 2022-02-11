@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container">
-      <vue-form-generator :schema="schema" :model="model2" :options="formOptions"></vue-form-generator>
+      <vue-form-generator :schema="schema" :model="model1" :options="formOptions"></vue-form-generator>
     </div>
   </div>
 </template>
@@ -12,6 +12,12 @@ export default {
   data() {
     return {
       model : {
+        id      : 1,
+        name    : 'John Doe',
+        password: 'J0hnD03!x4',
+        email   : 'john.doe@gmail.com',
+      },
+      model1: {
         id           : 1,
         name         : 'John Doe',
         password     : 'J0hnD03!x4',
@@ -72,15 +78,6 @@ export default {
             //validator: VueFormGenerator.validators.string,
           },
           {
-            type    : 'select',
-            label   : 'Skills',
-            model   : 'skills',
-            multiple: true,
-            values  : ['Javascript', 'VueJS', 'CSS3', 'HTML5'],
-            required: true,
-            min     : 3,
-          },
-          {
             type  : 'radio-group',
             label : 'Marital Status',
             model : 'maritalStatus',
@@ -120,12 +117,21 @@ export default {
                 model    : "username",
               },
               {
+                type    : 'select',
+                label   : 'Skills',
+                model   : 'skills',
+                multiple: true,
+                values  : ['Javascript', 'VueJS', 'CSS3', 'HTML5'],
+                required: true,
+                min     : 3,
+              },
+              /*{
                 type     : "input",
                 inputType: "email",
                 id       : "email",
                 label    : "Email Address",
                 model    : "email",
-              },
+              },*/
             ],
           },
           {
@@ -167,6 +173,7 @@ export default {
         validateAfterLoad   : true,
         validateAfterChanged: true,
         validateAsync       : true,
+        /*validateOnValueUpdate: true,*/
       },
     }
   },

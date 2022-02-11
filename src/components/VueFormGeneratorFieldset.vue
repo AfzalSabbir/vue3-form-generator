@@ -8,6 +8,7 @@
                  :multiple="field.multiple"
                  :disabled="field.disabled"
                  :featured="field.featured"
+                 :error="errors[field.model]"
                  :placeholder="field.placeholder"
                  :field="field"
                  :id="field.id || (uuid + '-' + index)"
@@ -25,6 +26,7 @@
 
 <script setup>
 import {v4 as uuidv4} from 'uuid';
+import {ref}          from "vue";
 
 const props = defineProps({
   fields: Object,
@@ -62,7 +64,17 @@ const props = defineProps({
       return value.length > 0;
     },
   },
+
+  errors: {
+    type   : Object,
+    default: () => ({}),
+  },
 });
+const emit  = defineEmits(['addToParentShapes']);
+
+const uuid = uuidv4();
+
+const shape = ref([]);
 
 const getInputName = (field) => {
   return `base-${field.type}`;
@@ -74,5 +86,4 @@ const getClassName = (field) => {
   return getInputType(field) !== 'checkbox' ? 'form-control' : '';
 };
 
-const uuid = uuidv4();
 </script>

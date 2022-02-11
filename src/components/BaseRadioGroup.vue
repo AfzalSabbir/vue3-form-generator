@@ -1,33 +1,16 @@
-<template>
-  <label class="d-block mt-2" :class="errorClassName" v-if="label">
-    {{ label }}
-  </label>
-  <div v-for="option in options">
-    <BaseRadio :label="option.label || option"
-               @change="$emit('update:modelValue', option.value || option)"
-               v-bind="$attrs"
-               :id="$attrs.id + '-' + (option.value || option)"
-               type="radio"
-               :field="field"
-               :value="option.value || option"
-               :modelValue="modelValue"
-               name="gender"/>
-  </div>
-
-  <ShowErrorMessages :errors="errors || []" :error="error || ``"/>
-</template>
-
 <script setup>
-import Helpers from "../tools/Helpers";
+import {watch, ref}        from "vue";
+import {useField, useForm} from "vee-validate";
+import * as yup            from "yup";
 
 const props = defineProps({
+  modelValue: {
+    type   : String,
+    default: false,
+  },
   label     : {
     type   : String,
     default: null,
-  },
-  modelValue: {
-    type   : [String, Number],
-    default: false,
   },
   options   : {
     type    : Array,
@@ -46,11 +29,32 @@ const props = defineProps({
     type   : String,
     default: '',
   },
+  error     : {
+    type   : String,
+    default: '',
+  },
 });
 
-let {errors, error}         = props;
-const errorClassName = 'is-invalid';
 </script>
+
+<template>
+  <label class="d-block mt-2 form-check-label" v-if="label">
+    {{ label }}
+  </label>
+  <div v-for="option in options">
+    <BaseRadio :label="option.label || option"
+               @change="$emit('update:modelValue', option.value || option)"
+               v-bind="$attrs"
+               :id="$attrs.id + '-' + (option.value || option)"
+               type="radio"
+               :field="field"
+               className="form-check-input"
+               :value="option.value || option"
+               :modelValue="modelValue"
+               name="gender"/>
+  </div>
+  <ShowErrorMessages :error="error"/>
+</template>
 
 <style scoped>
 
