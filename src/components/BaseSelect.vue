@@ -1,19 +1,3 @@
-<template>
-  <label v-if="label" :for="attrs.id" :class="errorClassName">{{ label }}</label>
-  <select :class="[className, errorClassName]"
-          :id="attrs.id"
-          v-bind="attributes"
-          v-model="inpV"
-          @change="$emit('update:modelValue', inpV)">
-    <option :value="option.value ? option.value : option"
-            v-for="option in options">
-      {{ option.label ? option.label : option }}
-    </option>
-  </select>
-
-  <ShowErrorMessages :errors="errorList || []" :error="errors.inpV || ``"/>
-</template>
-
 <script setup>
 import {ref, useAttrs, watch} from "vue";
 import {useField, useForm}    from "vee-validate";
@@ -66,15 +50,12 @@ let validator = yup[props.field?.multiple ? 'array' : 'string']();
 if (props.field?.required) {
   validator = validator.min(1, 'This field is required');
 }
-
 if (props.field?.multiple && props.field?.min) {
   validator = validator.min(props.field.min, 'Select at least ${min} options')
 }
-
 if (props.field?.multiple && props.field?.max) {
   validator = validator.max(props.field.max, 'Select at most ${min} options')
 }
-
 let shape              = {
   inpV: validator,
 };
@@ -98,6 +79,22 @@ watch(() => errors.value.inpV, (newValue) => {
 });
 
 </script>
+
+<template>
+  <label v-if="label" :for="attrs.id" :class="errorClassName">{{ label }}</label>
+  <select :class="[className, errorClassName]"
+          :id="attrs.id"
+          v-bind="attributes"
+          v-model="inpV"
+          @change="$emit('update:modelValue', inpV)">
+    <option :value="option.value ? option.value : option"
+            v-for="option in options">
+      {{ option.label ? option.label : option }}
+    </option>
+  </select>
+
+  <ShowErrorMessages :errors="errorList || []" :error="errors.inpV || ``"/>
+</template>
 
 <style scoped>
 
