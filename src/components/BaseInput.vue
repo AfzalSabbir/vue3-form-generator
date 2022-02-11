@@ -36,7 +36,6 @@ const errorClassName = ref('');
 let validator = yup[type !== 'number' ? 'string' : type]();
 if (props.field?.required) {
   validator = validator.required('This field is required');
-  console.log('required')
 }
 if (props.field?.min) {
   validator = validator.min(props.field.min, 'This field must be at least ${min}');

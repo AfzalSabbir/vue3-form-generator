@@ -135,6 +135,7 @@ export default {
                 type       : "textarea",
                 label      : "Bio",
                 placeholder: "Write bio",
+                max        : 200,
                 required   : true,
                 rows       : 5,
                 model      : "bio",
