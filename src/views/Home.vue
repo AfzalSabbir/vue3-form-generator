@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container">
-      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      <vue-form-generator :schema="schema" :model="model2" :options="formOptions"></vue-form-generator>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      model: {
+      model : {
         id           : 1,
         name         : 'John Doe',
         password     : 'J0hnD03!x4',
@@ -24,6 +24,20 @@ export default {
         color        : 'Red',
         timeout      : 34,
         bio          : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos, quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos, quisquam.',
+      },
+      model2: {
+        id           : '',
+        name         : '',
+        password     : '',
+        maritalStatus: '',
+        skills       : '',
+        email        : '',
+        status       : '',
+        age          : '',
+        username     : '',
+        color        : '',
+        timeout      : '',
+        bio          : '',
       },
 
       schema: {
@@ -63,6 +77,8 @@ export default {
             model   : 'skills',
             multiple: true,
             values  : ['Javascript', 'VueJS', 'CSS3', 'HTML5'],
+            required: true,
+            min     : 3,
           },
           {
             type  : 'radio-group',
@@ -94,6 +110,8 @@ export default {
                 id       : "current_age",
                 label    : "Age",
                 model    : "age",
+                min      : 0,
+                max      : 18,
               },
               {
                 type     : "input",

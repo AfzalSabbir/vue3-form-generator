@@ -34,7 +34,6 @@ const errorClassName = ref('');
 // Validation
 let validator = yup.string();
 if (props.field?.required) {
-  console.log('req')
   validator = validator.required('This field is required');
 }
 if (props.field?.min) {

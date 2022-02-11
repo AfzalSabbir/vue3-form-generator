@@ -13,6 +13,7 @@
                  :id="field.id || (uuid + '-' + index)"
                  :name="field.name || field.model"
                  :min="field.min"
+                 :max="field.max"
                  :rows="field.rows"
                  :options="field.values"
                  :label="field.label"
