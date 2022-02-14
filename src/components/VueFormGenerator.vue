@@ -6,7 +6,7 @@
   </div>
   <div class="vue-form-generator" v-if="schema != null">
     <form @submit.prevent="">
-      <div class="row mb-3">
+      <div class="row mb-3" v-if="schema.fields">
         <kbd class="col-4">
           <pre style="">{{ model }}</pre>
         </kbd>
@@ -44,6 +44,7 @@
 
         <hr class="my-5"/>
       </div>
+      <button type="submit" class="btn btn-primary mb-5">Submit</button>
     </form>
   </div>
 </template>

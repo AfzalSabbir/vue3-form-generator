@@ -32,13 +32,13 @@ const emit  = defineEmits(['update:modelValue']);
     {{ label }}
   </label>
   <div v-for="option in options">
-    <BaseRadio :label="option.label || option"
+    <BaseRadio :key="option.value || option.label || option"
+               :label="option.label || option"
                @update:modelValue="emit('update:modelValue', option.value || option.label || option)"
-               v-bind="attrs"
                :id="attrs.id + '-' + (option.value || option.label || option)"
-               :key="option.value || option.label || option"
-               className="form-check-input"
+               v-bind="attrs"
                :value="option.value || option.label || option"
+               className="form-check-input"
                :modelValue="modelValue"/>
   </div>
 
