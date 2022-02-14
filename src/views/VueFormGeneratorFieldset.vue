@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import {v4 as uuidv4} from 'uuid';
+import {v4 as uuidV4} from 'uuid';
 
 const props = defineProps({
   fields: Object,
@@ -55,7 +55,7 @@ const props = defineProps({
   },
 });
 
-const uuid = uuidv4();
+const uuid = uuidV4();
 
 const getInputName = (field) => {
   return `base-${field.type}`;

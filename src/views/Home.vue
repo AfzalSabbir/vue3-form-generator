@@ -1,15 +1,21 @@
 <template>
   <div class="home">
     <div class="container">
-      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
-      <vue-form-generator :schema="schema1" :model="model1" :options="formOptions"></vue-form-generator>
+      <VueFormGenerator
+        v-model="loginModel"
+        :schema="loginSchema"
+      ></VueFormGenerator>
     </div>
   </div>
 </template>
 
 <script>
+import {ref}            from "vue";
+import VueFormGenerator from "@/views/VueFormGenerator";
+
 export default {
-  name: 'Home',
+  name      : 'Home',
+  components: {VueFormGenerator},
   data() {
     return {
       model : {
@@ -400,6 +406,55 @@ export default {
         /*validateOnValueUpdate: true,*/
       },
     }
+  },
+
+  setup() {
+    const loginModel = ref({
+      email   : 'admin@gamil.com',
+      password: '',
+      skill   : '',
+    });
+
+    const loginSchema = {
+      groups: [
+        {
+          label : "Login",
+          fields: [
+            {
+              type       : 'input',
+              inputType  : 'email',
+              label      : 'Email',
+              model      : 'email',
+              name       : "user_email",
+              placeholder: 'User\'s e-mail address',
+            },
+            {
+              type       : 'input',
+              inputType  : 'password',
+              label      : 'Password',
+              model      : 'password',
+              placeholder: 'Enter Password',
+              name       : "user_password",
+              min        : 6,
+              required   : true,
+            },
+
+            {
+              type    : 'select',
+              label   : 'Skill',
+              model   : 'skill',
+              values  : ['Javascript', 'VueJS', 'CSS3', 'HTML5'],
+              required: true,
+            },
+          ],
+        },
+      ],
+    }
+
+    return {
+      loginModel,
+      loginSchema,
+    };
   },
 }
 </script>
