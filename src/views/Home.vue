@@ -410,7 +410,7 @@ export default {
 
   setup() {
     const loginModel = ref({
-      email   : 'admin@gamil.com',
+      email   : '',
       password: '',
       skill   : '',
     });
@@ -427,6 +427,7 @@ export default {
               model      : 'email',
               name       : "user_email",
               placeholder: 'User\'s e-mail address',
+              required   : true,
             },
             {
               type       : 'input',
@@ -438,7 +439,11 @@ export default {
               min        : 6,
               required   : true,
             },
-
+          ],
+        },
+        {
+          label : "Other",
+          fields: [
             {
               type    : 'select',
               label   : 'Skill',

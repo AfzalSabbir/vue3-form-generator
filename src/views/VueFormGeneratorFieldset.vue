@@ -86,8 +86,8 @@ const getClassName = (field) => {
 const getInputAttributes = (field, index) => {
   let attrs = {
     readonly   : field.readonly,
-    required   : field.required,
-    multiple   : field.multiple,
+    /*required   : field.required,*/
+    // multiple   : field.multiple,
     disabled   : field.disabled,
     featured   : field.featured,
     error      : props.errors[field.model],
@@ -95,8 +95,8 @@ const getInputAttributes = (field, index) => {
     /*field      : field,*/
     id         : field.id || (uuid + '-' + index),
     name       : field.name || field.model,
-    min        : field.min,
-    max        : field.max,
+    /*min        : field.min,*/
+    /*max        : field.max,*/
     rows       : field.rows,
     options    : field.values,
     label      : field.label,
