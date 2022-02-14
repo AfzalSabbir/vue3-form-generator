@@ -1,7 +1,10 @@
 <template>
   <form @submit.prevent="login">
-    <pre>{{ modelValue }}</pre>
-    <pre>{{ values }}</pre>
+    <div class="row">
+      <kbd class="col-12">
+        <pre class="mb-0">{{ modelValue }}</pre>
+      </kbd>
+    </div>
 
     <fieldset v-if="schema?.fields?.length > 0">
       <VueFormGeneratorFieldset :fields="schema.fields"
