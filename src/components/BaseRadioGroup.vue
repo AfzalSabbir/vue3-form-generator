@@ -47,6 +47,7 @@ const emit  = defineEmits(['update:modelValue']);
                :value="option.value || option.label || option"
                :modelValue="modelValue"/>
   </div>
+
   <ShowErrorMessages :error="error"/>
 </template>
 

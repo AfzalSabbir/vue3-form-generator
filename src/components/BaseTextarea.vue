@@ -10,11 +10,6 @@ const props = defineProps({
     type   : String,
     default: null,
   },
-  field     : {
-    type    : Object,
-    required: true,
-    default : () => ({}),
-  },
   className : {
     type   : String,
     default: '',
@@ -35,9 +30,11 @@ const emit = defineEmits(['update:modelValue']);
   </label>
   <textarea :id="attrs.id"
             :class="[className]"
-            v-bind="attrs"
-            v-model="modelValue"
-            @input="emit('update:modelValue', modelValue)"></textarea>
+            v-bind="{
+              ...attrs,
+              onInput: (e) => emit('update:modelValue', e.target.value),
+            }"
+            :value="modelValue"></textarea>
 
   <ShowErrorMessages :error="error"/>
 </template>

@@ -62,7 +62,14 @@ const getInputName = (field) => {
 };
 const getInputType = (field) => {
   let type;
-  if (field.type === 'select' || field.inputType === 'select') {
+  if (field.type
+      === 'select'
+      || field.inputType
+      === 'select'
+      || field.type
+      === 'textarea'
+      || field.inputType
+      === 'textarea') {
     type = null;
   } else if (field.type === 'radio-group' || field.inputType === 'radio-group') {
     type = 'radio';

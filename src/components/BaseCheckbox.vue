@@ -10,11 +10,6 @@ const props = defineProps({
     type   : Boolean,
     default: false,
   },
-  field     : {
-    type    : Object,
-    required: true,
-    default : () => ({}),
-  },
   className : {
     type   : String,
     default: '',

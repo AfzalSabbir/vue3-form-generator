@@ -14,13 +14,13 @@
 import {useAttrs, defineProps, defineEmits} from "vue";
 
 const props = defineProps({
-  label     : {
-    type   : String,
-    default: null,
-  },
   modelValue: {
     type   : [String, Number],
     default: false,
+  },
+  label     : {
+    type   : String,
+    default: null,
   },
   value     : {
     type    : [String, Number],
@@ -29,11 +29,6 @@ const props = defineProps({
   name      : {
     type    : String,
     required: true,
-  },
-  field     : {
-    type    : Object,
-    required: true,
-    default : () => ({}),
   },
   className : {
     type   : String,

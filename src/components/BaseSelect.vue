@@ -1,6 +1,5 @@
 <script setup>
-import {ref, useAttrs} from "vue";
-import _               from "lodash";
+import {useAttrs} from "vue";
 
 const props = defineProps({
   modelValue: {
@@ -15,11 +14,6 @@ const props = defineProps({
   options   : {
     type   : Array,
     default: [],
-  },
-  field     : {
-    type    : Object,
-    required: true,
-    default : () => ({}),
   },
   className : {
     type   : String,
