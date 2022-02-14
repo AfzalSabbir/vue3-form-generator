@@ -25,6 +25,8 @@ const props = defineProps({
   },
 });
 const attrs = useAttrs();
+
+const emit = defineEmits(['update:modelValue']);
 </script>
 
 <template>
@@ -35,7 +37,7 @@ const attrs = useAttrs();
             :class="[className]"
             v-bind="attrs"
             v-model="modelValue"
-            @input="$emit('update:modelValue', modelValue)"></textarea>
+            @input="emit('update:modelValue', modelValue)"></textarea>
 
   <ShowErrorMessages :error="error"/>
 </template>

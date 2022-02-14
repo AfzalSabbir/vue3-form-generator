@@ -20,15 +20,18 @@ const props = defineProps({
   },
 });
 const attrs = useAttrs();
+const emit  = defineEmits(['update:modelValue']);
 </script>
 
 <template>
   <label v-if="label" :for="attrs.id">
     {{ label }}
   </label>
-  <input :id="attrs.id" :class="[className]"
+  <input :id="attrs.id"
+         :class="[className]"
          v-bind="attrs"
-         v-model="modelValue"/>
+         :value="modelValue"
+         @input="emit('update:modelValue', $event.target.value)"/>
 
   <ShowErrorMessages :error="error"/>
 </template>

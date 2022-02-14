@@ -1,16 +1,18 @@
 <template>
-  <input :class="[className]"
+  <input :class="[className, 'me-2']"
          :value="value"
-         :id="$attrs.id"
+         :id="attrs.id"
          :checked="modelValue === value"
-         @change="$emit('update:modelValue', value)"
-         v-bind="$attrs">
-  <label :for="$attrs.id" class="form-check-label">
+         @change="emit('update:modelValue', value)"
+         v-bind="attrs">
+  <label :for="attrs.id" class="form-check-label">
     {{ label }}
   </label>
 </template>
 
 <script setup>
+import {useAttrs, defineProps, defineEmits} from "vue";
+
 const props = defineProps({
   label     : {
     type   : String,
@@ -38,6 +40,8 @@ const props = defineProps({
     default: '',
   },
 });
+const attrs = useAttrs();
+const emit  = defineEmits(['update:modelValue']);
 </script>
 
 <style scoped>

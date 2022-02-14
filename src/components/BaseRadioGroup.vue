@@ -1,7 +1,5 @@
 <script setup>
-import {watch, ref}        from "vue";
-import {useField, useForm} from "vee-validate";
-import * as yup            from "yup";
+import {useAttrs} from "vue";
 
 const props = defineProps({
   modelValue: {
@@ -14,10 +12,6 @@ const props = defineProps({
   },
   options   : {
     type    : Array,
-    required: true,
-  },
-  name      : {
-    type    : String,
     required: true,
   },
   field     : {
@@ -34,7 +28,8 @@ const props = defineProps({
     default: '',
   },
 });
-
+const attrs = useAttrs();
+const emit  = defineEmits(['update:modelValue']);
 </script>
 
 <template>
@@ -43,15 +38,14 @@ const props = defineProps({
   </label>
   <div v-for="option in options">
     <BaseRadio :label="option.label || option"
-               @change="$emit('update:modelValue', option.value || option)"
-               v-bind="$attrs"
-               :id="$attrs.id + '-' + (option.value || option)"
-               type="radio"
+               @change="emit('update:modelValue', option.value || option.label || option)"
+               v-bind="attrs"
+               :id="attrs.id + '-' + (option.value || option.label || option)"
+               :key="option.value || option.label || option"
                :field="field"
                className="form-check-input"
-               :value="option.value || option"
-               :modelValue="modelValue"
-               name="gender"/>
+               :value="option.value || option.label || option"
+               :modelValue="modelValue"/>
   </div>
   <ShowErrorMessages :error="error"/>
 </template>

@@ -31,31 +31,24 @@ const props = defineProps({
   },
 });
 
-const attrs      = useAttrs();
-const attributes = ref(attrs);
-
-// remove type from attributes
-if (attributes.value) {
-  attributes.value = _.omit(attributes.value, 'type');
-}
-
-let modelValue = props.modelValue;
-// multiple and not object
-if (props.field?.multiple && !(_.isArray(props.modelValue) || _.isObject(props.modelValue))) {
-  modelValue = _.castArray(props.modelValue);
-}
+const attrs = useAttrs();
 </script>
 
 <template>
   <label v-if="label" :for="attrs.id">{{ label }}</label>
   <select :class="[className]"
           :id="attrs.id"
-          v-bind="attributes"
-          v-model="modelValue"
-          @change="$emit('update:modelValue', modelValue)">
-    <option :value="option.value ? option.value : option"
+          v-bind="{
+            ...attrs,
+            onChange: ($event) => {
+              $emit('update:modelValue', $event.target.value);
+            },
+          }"
+          :value="modelValue">
+    <option :value="option.value || option"
+            :selected="(option.value || option) === modelValue"
             v-for="option in options">
-      {{ option.label ? option.label : option }}
+      {{ option.label || option }}
     </option>
   </select>
 

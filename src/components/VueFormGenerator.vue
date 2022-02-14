@@ -1,5 +1,4 @@
 <template>
-  <button class="btn btn-success my-3">Check Validation</button>
   <div class="row mb-3">
     <kbd class="col-12">
       <pre>{{ errors }}</pre>

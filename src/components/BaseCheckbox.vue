@@ -1,5 +1,5 @@
 <script setup>
-import {useAttrs} from "vue";
+import {useAttrs, defineProps, defineEmits} from "vue";
 
 const props = defineProps({
   label     : {
@@ -25,13 +25,14 @@ const props = defineProps({
   },
 });
 const attrs = useAttrs();
+const emit  = defineEmits(['update:modelValue']);
 </script>
 
 <template>
-  <input :class="[className]"
+  <input :class="[className, 'me-2']"
          :id="attrs.id"
          :checked="modelValue"
-         @change="$emit('update:modelValue', $event.target.checked)"
+         @change="emit('update:modelValue', $event.target.checked)"
          v-bind="attrs">
   <label :for="attrs.id" v-if="label">
     {{ label }}
