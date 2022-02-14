@@ -14,11 +14,6 @@ const props = defineProps({
     type    : Array,
     required: true,
   },
-  field     : {
-    type    : Object,
-    required: true,
-    default : () => ({}),
-  },
   className : {
     type   : String,
     default: '',
@@ -38,11 +33,10 @@ const emit  = defineEmits(['update:modelValue']);
   </label>
   <div v-for="option in options">
     <BaseRadio :label="option.label || option"
-               @change="emit('update:modelValue', option.value || option.label || option)"
+               @update:modelValue="emit('update:modelValue', option.value || option.label || option)"
                v-bind="attrs"
                :id="attrs.id + '-' + (option.value || option.label || option)"
                :key="option.value || option.label || option"
-               :field="field"
                className="form-check-input"
                :value="option.value || option.label || option"
                :modelValue="modelValue"/>
