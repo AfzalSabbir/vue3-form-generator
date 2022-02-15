@@ -413,13 +413,13 @@ export default {
 
       formOptions: {
         keepSubmitDisabled: false,
-        showErrorOnFocus  : true,
+        showErrorOnBlur   : true,
         showErrorRealTime : false,
       },
 
       formOptions1: {
         keepSubmitDisabled: false,
-        showErrorOnFocus  : false,
+        showErrorOnBlur   : false,
         showErrorRealTime : true,
       },
     }
@@ -475,7 +475,7 @@ export default {
 
     const loginFormOptions = {
       keepSubmitDisabled: true,
-      showErrorOnFocus  : false,
+      showErrorOnBlur   : true,
       showErrorRealTime : false,
     };
 
