@@ -24,11 +24,12 @@ const emit  = defineEmits(['update:modelValue']);
 </script>
 
 <template>
-  <input :class="[className, 'me-2']"
+  <input v-bind="attrs"
+         :class="[className, 'me-2']"
          :id="attrs.id"
          :checked="modelValue"
          @change="emit('update:modelValue', $event.target.checked)"
-         v-bind="attrs">
+  >
   <label :for="attrs.id" v-if="label">
     {{ label }}
   </label>

@@ -1,10 +1,11 @@
 <template>
-  <input :class="[className, 'me-2']"
+  <input v-bind="attrs"
+         :class="[className, 'me-2']"
          :value="value"
          :id="attrs.id"
          :checked="modelValue === value"
          @change="emit('update:modelValue', value)"
-         v-bind="attrs">
+  >
   <label :for="attrs.id" class="form-check-label">
     {{ label }}
   </label>

@@ -31,12 +31,12 @@ const emit  = defineEmits(['update:modelValue']);
   <label class="d-block mt-2 form-check-label" v-if="label">
     {{ label }}
   </label>
-  <div v-for="option in options">
+  <div v-for="(option, index) in options">
     <BaseRadio :key="option.value || option.label || option"
                :label="option.label || option"
                @update:modelValue="emit('update:modelValue', option.value || option.label || option)"
-               :id="attrs.id + '-' + (option.value || option.label || option)"
                v-bind="attrs"
+               :id="attrs.id + '-' + (option.value || option.label || option) + '-' + index"
                :value="option.value || option.label || option"
                className="form-check-input"
                :modelValue="modelValue"/>

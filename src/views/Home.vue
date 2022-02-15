@@ -5,6 +5,16 @@
         v-model="loginModel"
         :schema="loginSchema"
       ></VueFormGenerator>
+
+      <VueFormGenerator
+        v-model="model1"
+        :schema="schema1"
+      ></VueFormGenerator>
+
+      <VueFormGenerator
+        v-model="model"
+        :schema="schema"
+      ></VueFormGenerator>
     </div>
   </div>
 </template>
