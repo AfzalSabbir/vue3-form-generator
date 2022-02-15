@@ -86,7 +86,21 @@ export default {
     }
     const shapes  = ref({});
     const getType = (multiple, type) => {
-      return multiple ? 'array' : (type !== 'number' ? 'string' : type);
+      switch (type) {
+        case 'string':
+          return 'string';
+        case 'number':
+          return 'number';
+        case 'boolean':
+        case 'checkbox':
+          return 'boolean';
+        case 'array':
+          return 'array';
+        case 'object':
+          return 'object';
+        default:
+          return multiple ? 'array' : 'string';
+      }
     }
     allFields.forEach(field => {
       let type     = field.inputType ?? field.type ?? 'text';

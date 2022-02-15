@@ -17,6 +17,7 @@
     {{ label }}
   </label>
 
+  <!-- Error -->
   <ShowErrorMessages :error="error"/>
 </template>
 

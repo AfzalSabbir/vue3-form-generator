@@ -16,6 +16,7 @@
             :class="[className]"
             :value="modelValue"></textarea>
 
+  <!-- Error -->
   <ShowErrorMessages :error="error"/>
 </template>
 

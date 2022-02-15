@@ -17,6 +17,7 @@
                :modelValue="modelValue"/>
   </div>
 
+  <!-- Error -->
   <ShowErrorMessages :error="error"/>
 </template>
 

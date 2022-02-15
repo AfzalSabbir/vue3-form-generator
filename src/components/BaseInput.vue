@@ -16,6 +16,7 @@
          :class="[className]"
          :value="modelValue"/>
 
+  <!-- Error -->
   <ShowErrorMessages :error="error"/>
 </template>
 

@@ -38,7 +38,7 @@ export default {
         has_email: '',
         email    : 'john.doe@gmail.com',
         can_swim : '',
-        can_walk : null,
+        can_walk : false,
       },
       model1: {
         id           : 1,
