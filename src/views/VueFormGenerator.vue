@@ -1,25 +1,37 @@
 <template>
-  <form @submit.prevent="login" class="mb-5">
+  <form @submit.prevent="login" class="mb-5" :id="uuid">
     <div class="row">
-      <kbd class="col-12">
-        <pre class="mb-0">{{ modelValue }}</pre>
-      </kbd>
+      <div class="col-6">
+        <kbd class="d-block">
+          <pre class="mb-0">{{ modelValue }}</pre>
+        </kbd>
+      </div>
+      <div class="col-6">
+        <kbd class="d-block">
+          <pre class="mb-0">{{ options }}</pre>
+        </kbd>
+      </div>
     </div>
 
     <fieldset v-if="schema?.fields?.length > 0">
       <VueFormGeneratorFieldset :formOptions="options"
                                 :fields="schema.fields"
                                 :model="modelValue"
+                                :uuid="uuid"
+                                @listenHandelChange="handelChange"
                                 :errors="errors"/>
     </fieldset>
 
     <template v-if="schema?.groups?.length > 0">
-      <div v-for="group in schema.groups">
+      <div v-for="(group, index) in schema.groups">
         <fieldset v-if="group?.fields?.length > 0">
           <legend v-if="group.label">{{ group.label }}</legend>
           <VueFormGeneratorFieldset :formOptions="options"
+                                    :key="index"
                                     :fields="group.fields"
                                     :model="modelValue"
+                                    :uuid="uuid + '-' + index"
+                                    @listenHandelChange="handelChange"
                                     :errors="errors"/>
         </fieldset>
       </div>
@@ -30,7 +42,7 @@
               :disabled="disableSubmit()"
               class="btn btn-outline-success">Submit
       </button>
-      <button type="reset" class="btn btn-light" @click="resetForm">Reset</button>
+      <button type="button" class="btn btn-light" @click="resetForm">Reset</button>
     </div>
   </form>
 </template>
@@ -41,6 +53,7 @@ import {useField, useForm}      from "vee-validate";
 import {useAttrs, ref}          from "vue";
 import VueFormGeneratorFieldset from "@/views/VueFormGeneratorFieldset";
 import _                        from "lodash";
+import {v4 as uuidV4}           from 'uuid';
 
 export default {
   name      : 'VueFormGenerator',
@@ -52,7 +65,10 @@ export default {
     schema    : Object,
     options   : Object,
   },
+
   setup(props, {emit}) {
+    const uuid = uuidV4();
+
     const attrs = useAttrs();
 
     const modelValueKeys = Object.keys(props.modelValue);
@@ -105,8 +121,8 @@ export default {
 
       shapes.value[field.model] = validator;
     });
-    const validationSchema                          = yup.object().shape(shapes.value);
-    const {handleSubmit, resetForm, errors, values} = useForm({
+    const validationSchema                                         = yup.object().shape(shapes.value);
+    const {handleSubmit, resetForm, errors, values, setFieldValue} = useForm({
       initialValues,
       validationSchema,
     });
@@ -125,13 +141,20 @@ export default {
 
     const disableSubmit = () => props.options?.keepSubmitDisabled ? !_.values(errors.value).every(_.isEmpty) : false;
 
+    const handelChange = (key, value) => {
+      setFieldValue(key, value);
+      emit('update:modelValue', values);
+    };
+
     return {
       attrs,
       login,
       errors,
       resetForm,
       handleSubmit,
+      handelChange,
       disableSubmit,
+      uuid,
     };
   },
 }

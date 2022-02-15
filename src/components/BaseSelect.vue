@@ -3,7 +3,8 @@
   <select v-bind="{
             ...$attrs,
             onChange: ($event) => {
-              $emit('update:modelValue', $event.target.value);
+              //$emit('update:modelValue', $event.target.value);
+              $emit('listenHandelChange', $event.target.name, $event.target.value)
             },
           }"
           :class="[className]"
@@ -24,31 +25,28 @@
 export default {
   name : 'BaseSelect',
   props: {
-    modelValue: {
+    modelValue : {
       type    : [String, Number, Array],
       required: true,
       default : null,
     },
-    label     : {
+    label      : {
       type   : String,
       default: '',
     },
-    options   : {
+    options    : {
       type   : Array,
       default: [],
     },
-    className : {
+    className  : {
       type   : String,
       default: '',
     },
-    error     : {
+    error      : {
       type   : String,
       default: '',
     },
-  },
-
-  setup(props) {
-    return {};
+    formOptions: Object,
   },
 }
 

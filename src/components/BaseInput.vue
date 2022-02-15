@@ -2,11 +2,19 @@
   <label v-if="label" :for="$attrs.id">
     {{ label }}
   </label>
-  <input v-bind="$attrs"
+  <input v-bind="{
+           ...$attrs,
+           onChange: ($event) => {
+             $emit('listenHandelChange', $event.target.name, $event.target.value)
+           },
+           onInput: ($event) => {
+             if(!formOptions?.showErrorOnBlur)
+              $emit('update:modelValue', $event.target.value)
+           }
+         }"
          :id="$attrs.id"
          :class="[className]"
-         :value="modelValue"
-         @input="$emit('update:modelValue', $event.target.value)"/>
+         :value="modelValue"/>
 
   <ShowErrorMessages :error="error"/>
 </template>
@@ -14,26 +22,25 @@
 <script>
 export default {
   name : 'BaseInput',
+  emits: ['listenHandelChange', 'update:modelValue'],
   props: {
-    modelValue: {
+    modelValue : {
       type    : [String, Number],
       required: true,
     },
-    label     : {
+    label      : {
       type   : String,
       default: null,
     },
-    className : {
+    formOptions: Object,
+    className  : {
       type   : String,
       default: '',
     },
-    error     : {
+    error      : {
       type   : String,
       default: '',
     },
-  },
-  setup() {
-    //const emit  = defineEmits(['update:modelValue']);
   },
 }
 </script>

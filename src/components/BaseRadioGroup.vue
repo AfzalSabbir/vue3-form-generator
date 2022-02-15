@@ -3,10 +3,13 @@
     {{ label }}
   </label>
   <div v-for="(option, index) in options">
-    <BaseRadio v-bind="$attrs"
+    <BaseRadio v-bind="{
+                  ...$attrs,
+               }"
                :key="option.value || option.label || option"
                :label="option.label || option"
-               @update:modelValue="$emit('update:modelValue', option.value || option.label || option)"
+               @listenHandelChange="handleChange"
+               :formOptions="formOptions"
 
                :id="$attrs.id + '-' + (option.value || option.label || option) + '-' + index"
                :value="option.value || option.label || option"
@@ -20,27 +23,39 @@
 <script>
 export default {
   name : 'BaseRadioGroup',
+  emits: ['listenHandelChange', 'update:modelValue'],
   props: {
-    modelValue: {
+    modelValue : {
       type   : String,
       default: false,
     },
-    label     : {
+    label      : {
       type   : String,
       default: null,
     },
-    options   : {
+    options    : {
       type    : Array,
       required: true,
     },
-    className : {
+    className  : {
       type   : String,
       default: '',
     },
-    error     : {
+    error      : {
       type   : String,
       default: '',
     },
+    formOptions: Object,
+  },
+
+  setup(_, {emit}) {
+    const handleChange = (key, value) => {
+      emit('listenHandelChange', key, value);
+    };
+
+    return {
+      handleChange,
+    };
   },
 }
 </script>

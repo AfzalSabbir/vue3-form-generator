@@ -2,6 +2,8 @@
   <template v-for="(field, index) in fields">
     <div class="form-group">
       <component :is="getInputName(field)"
+                 @listenHandelChange="handleChange"
+                 :formOptions="formOptions"
                  v-model:modelValue="model[field.model]"
                  v-bind="getInputAttributes(field, index)"/>
     </div>
@@ -9,8 +11,6 @@
 </template>
 
 <script>
-import {v4 as uuidV4} from 'uuid';
-
 export default {
   name : 'VueFormGeneratorFieldset',
   props: {
@@ -33,6 +33,8 @@ export default {
     },
 
     formOptions: Object,
+
+    uuid: String,
 
     multiple: {
       type   : Boolean,
@@ -57,9 +59,8 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props) {
-    const uuid = uuidV4();
-
+  emits: ['listenHandelChange'],
+  setup(props, {emit}) {
     const getInputName = (field) => {
       return `base-${field.type}`;
     };
@@ -96,8 +97,8 @@ export default {
         error      : props.errors[field.model],
         placeholder: field.placeholder,
         /*field      : field,*/
-        id  : field.id || (uuid + '-' + index),
-        name: field.name || field.model,
+        id  : field.id || (props.uuid + '-' + index),
+        name: field.model || field.name,
         /*min        : field.min,*/
         /*max        : field.max,*/
         rows     : field.rows,
@@ -111,10 +112,15 @@ export default {
       return type ? {...attrs, type} : attrs;
     }
 
+    const handleChange = (key, value) => {
+      console.log(`key: ${key}`, `value: ${value}`);
+      emit('listenHandelChange', key, value);
+    };
+
     return {
       getInputName,
       getInputAttributes,
-      uuid,
+      handleChange,
     };
   },
 }

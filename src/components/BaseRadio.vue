@@ -1,11 +1,19 @@
 <template>
-  <input v-bind="$attrs"
+  <input v-bind="{
+            ...$attrs,
+            onChange: ($event) => {
+              //$emit('update:modelValue', value)
+              $emit('listenHandelChange', name, $event.target.value)
+            },
+            /*onInput: ($event) => {
+              if(!formOptions?.showErrorOnBlur)
+               $emit('update:modelValue', $event.target.value)
+            }*/
+         }"
          :class="[className, 'me-2']"
          :value="value"
          :id="$attrs.id"
-         :checked="modelValue === value"
-         @change="$emit('update:modelValue', value)"
-  >
+         :checked="modelValue === value">
   <label :for="$attrs.id" class="form-check-label">
     {{ label }}
   </label>
@@ -14,27 +22,29 @@
 <script>
 export default {
   name : 'BaseRadio',
+  emits: ['listenHandelChange', 'update:modelValue'],
   props: {
-    modelValue: {
+    modelValue : {
       type   : [String, Number],
       default: false,
     },
-    label     : {
+    label      : {
       type   : String,
       default: null,
     },
-    value     : {
+    value      : {
       type    : [String, Number],
       required: true,
     },
-    name      : {
+    name       : {
       type    : String,
       required: true,
     },
-    className : {
+    className  : {
       type   : String,
       default: '',
     },
+    formOptions: Object,
   },
 }
 </script>

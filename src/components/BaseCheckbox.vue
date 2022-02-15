@@ -1,10 +1,18 @@
 <template>
-  <input v-bind="$attrs"
+  <input v-bind="{
+              ...$attrs,
+              onChange: ($event) => {
+                //$emit('update:modelValue', $event.target.checked)
+                $emit('listenHandelChange', $event.target.name, $event.target.checked)
+              },
+              /*onInput: ($event) => {
+                if(!formOptions?.showErrorOnBlur)
+                 $emit('update:modelValue', $event.target.value)
+              }*/
+            }"
          :class="[className, 'me-2']"
          :id="$attrs.id"
-         :checked="modelValue"
-         @change="$emit('update:modelValue', $event.target.checked)"
-  >
+         :checked="modelValue">
   <label :for="$attrs.id" v-if="label">
     {{ label }}
   </label>
@@ -15,23 +23,25 @@
 <script>
 export default {
   name : 'BaseCheckbox',
+  emits: ['listenHandelChange', 'update:modelValue'],
   props: {
-    label     : {
+    label      : {
       type   : String,
       default: null,
     },
-    modelValue: {
+    modelValue : {
       type   : Boolean,
       default: false,
     },
-    className : {
+    className  : {
       type   : String,
       default: '',
     },
-    error     : {
+    error      : {
       type   : String,
       default: '',
     },
+    formOptions: Object,
   },
 }
 </script>

@@ -4,7 +4,13 @@
   </label>
   <textarea v-bind="{
               ...$attrs,
-              onInput: (e) => $emit('update:modelValue', e.target.value),
+              onChange: ($event) => {
+                $emit('listenHandelChange', $event.target.name, $event.target.value)
+              },
+              onInput: ($event) => {
+                if(!formOptions?.showErrorOnBlur)
+                 $emit('update:modelValue', $event.target.value)
+              }
             }"
             :id="$attrs.id"
             :class="[className]"
@@ -16,23 +22,25 @@
 <script>
 export default {
   name : 'BaseTextarea',
+  emits: ['listenHandelChange', 'update:modelValue'],
   props: {
-    modelValue: {
+    modelValue : {
       type    : String,
       required: true,
     },
-    label     : {
+    label      : {
       type   : String,
       default: null,
     },
-    className : {
+    className  : {
       type   : String,
       default: '',
     },
-    error     : {
+    error      : {
       type   : String,
       default: '',
     },
+    formOptions: Object,
   },
 
   setup() {
