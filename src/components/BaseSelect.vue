@@ -30,14 +30,14 @@ const attrs = useAttrs();
 
 <template>
   <label v-if="label" :for="attrs.id">{{ label }}</label>
-  <select :class="[className]"
-          :id="attrs.id"
-          v-bind="{
+  <select v-bind="{
             ...attrs,
             onChange: ($event) => {
               $emit('update:modelValue', $event.target.value);
             },
           }"
+          :class="[className]"
+          :id="attrs.id"
           :value="modelValue">
     <option :value="option.value || option"
             :selected="(option.value || option) === modelValue"

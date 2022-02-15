@@ -27,9 +27,9 @@ const emit  = defineEmits(['update:modelValue']);
   <label v-if="label" :for="attrs.id">
     {{ label }}
   </label>
-  <input :id="attrs.id"
+  <input v-bind="attrs"
+         :id="attrs.id"
          :class="[className]"
-         v-bind="attrs"
          :value="modelValue"
          @input="emit('update:modelValue', $event.target.value)"/>
 

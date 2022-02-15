@@ -28,12 +28,12 @@ const emit = defineEmits(['update:modelValue']);
   <label v-if="label" :for="attrs.id">
     {{ label }}
   </label>
-  <textarea :id="attrs.id"
-            :class="[className]"
-            v-bind="{
+  <textarea v-bind="{
               ...attrs,
               onInput: (e) => emit('update:modelValue', e.target.value),
             }"
+            :id="attrs.id"
+            :class="[className]"
             :value="modelValue"></textarea>
 
   <ShowErrorMessages :error="error"/>
