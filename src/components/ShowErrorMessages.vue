@@ -4,19 +4,20 @@
   </div>
 </template>
 
-<script setup>
-import {defineProps} from "vue";
-
-const props = defineProps({
-  error : {
-    type   : String,
-    default: null,
+<script>
+export default {
+  name : 'ShowErrorMessages',
+  props: {
+    error : {
+      type   : String,
+      default: null,
+    },
+    target: {
+      type   : String,
+      default: 'message',
+    },
   },
-  target: {
-    type   : String,
-    default: 'message',
-  },
-});
+};
 </script>
 
 <style scoped>

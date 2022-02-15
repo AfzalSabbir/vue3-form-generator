@@ -1,44 +1,15 @@
-<script setup>
-import {useAttrs} from "vue";
-
-const props = defineProps({
-  modelValue: {
-    type    : [String, Number, Array],
-    required: true,
-    default : null,
-  },
-  label     : {
-    type   : String,
-    default: '',
-  },
-  options   : {
-    type   : Array,
-    default: [],
-  },
-  className : {
-    type   : String,
-    default: '',
-  },
-  error     : {
-    type   : String,
-    default: '',
-  },
-});
-
-const attrs = useAttrs();
-</script>
-
 <template>
-  <label v-if="label" :for="attrs.id">{{ label }}</label>
+  <label v-if="label" :for="$attrs.id">{{ label }}</label>
   <select v-bind="{
-            ...attrs,
+            ...$attrs,
             onChange: ($event) => {
               $emit('update:modelValue', $event.target.value);
             },
           }"
           :class="[className]"
-          :id="attrs.id"
+          :id="$attrs.id"
           :value="modelValue">
+    <option readonly value="">-- Select {{ label }} --</option>
     <option :value="option.value || option"
             :selected="(option.value || option) === modelValue"
             v-for="option in options">
@@ -48,6 +19,40 @@ const attrs = useAttrs();
 
   <ShowErrorMessages :error="error"/>
 </template>
+
+<script>
+export default {
+  name : 'BaseSelect',
+  props: {
+    modelValue: {
+      type    : [String, Number, Array],
+      required: true,
+      default : null,
+    },
+    label     : {
+      type   : String,
+      default: '',
+    },
+    options   : {
+      type   : Array,
+      default: [],
+    },
+    className : {
+      type   : String,
+      default: '',
+    },
+    error     : {
+      type   : String,
+      default: '',
+    },
+  },
+
+  setup(props) {
+    return {};
+  },
+}
+
+</script>
 
 <style scoped>
 
