@@ -8,15 +8,15 @@
       ></VueFormGenerator>
 
       <VueFormGenerator
-        v-model="model1"
-        :schema="schema1"
-        :options="formOptions1"
-      ></VueFormGenerator>
-
-      <VueFormGenerator
         v-model="model"
         :schema="schema"
         :options="formOptions"
+      ></VueFormGenerator>
+
+      <VueFormGenerator
+        v-model="model1"
+        :schema="schema1"
+        :options="formOptions1"
       ></VueFormGenerator>
     </div>
   </div>
@@ -412,19 +412,15 @@ export default {
       },
 
       formOptions: {
-        validateAfterLoad   : false,
-        validateAfterChanged: true,
-        validateAfterSubmit : true,
-        validateAsync       : true,
-        /*validateOnValueUpdate: true,*/
+        keepSubmitDisabled: false,
+        showErrorOnFocus  : true,
+        showErrorRealTime : false,
       },
 
       formOptions1: {
-        validateAfterLoad   : false,
-        validateAfterChanged: true,
-        validateAfterSubmit : true,
-        validateAsync       : true,
-        /*validateOnValueUpdate: true,*/
+        keepSubmitDisabled: false,
+        showErrorOnFocus  : false,
+        showErrorRealTime : true,
       },
     }
   },
@@ -478,11 +474,9 @@ export default {
     }
 
     const loginFormOptions = {
-      validateAfterLoad   : false,
-      validateAfterChanged: true,
-      validateAfterSubmit : true,
-      validateAsync       : true,
-      /*validateOnValueUpdate: true,*/
+      keepSubmitDisabled: true,
+      showErrorOnFocus  : false,
+      showErrorRealTime : false,
     };
 
     return {

@@ -26,7 +26,10 @@
     </template>
 
     <div class="d-flex gap-2">
-      <button type="submit" class="btn btn-outline-success">Submit</button>
+      <button type="submit"
+              :disabled="disableSubmit()"
+              class="btn btn-outline-success">Submit
+      </button>
       <button type="reset" class="btn btn-light" @click="resetForm">Reset</button>
     </div>
   </form>
@@ -37,6 +40,7 @@ import * as yup                 from "yup";
 import {useField, useForm}      from "vee-validate";
 import {useAttrs, ref}          from "vue";
 import VueFormGeneratorFieldset from "@/views/VueFormGeneratorFieldset";
+import _                        from "lodash";
 
 export default {
   name      : 'VueFormGenerator',
@@ -119,12 +123,15 @@ export default {
 
     emit('update:modelValue', values);
 
+    const disableSubmit = () => props.options?.keepSubmitDisabled ? !_.values(errors.value).every(_.isEmpty) : false;
+
     return {
       attrs,
       login,
       errors,
       resetForm,
       handleSubmit,
+      disableSubmit,
     };
   },
 }
