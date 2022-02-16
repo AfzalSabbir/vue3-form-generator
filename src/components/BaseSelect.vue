@@ -18,6 +18,7 @@
     </option>
   </select>
 
+  <!-- Error -->
   <ShowErrorMessages :error="error"/>
 </template>
 

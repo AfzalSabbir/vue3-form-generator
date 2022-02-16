@@ -3,7 +3,7 @@
             ...$attrs,
             onChange: ($event) => {
               //$emit('update:modelValue', value)
-              $emit('listenHandelChange', name, $event.target.value)
+              $emit('listenHandelChange', name, value)
             },
             /*onInput: ($event) => {
               if(!formOptions?.showErrorOnBlur)

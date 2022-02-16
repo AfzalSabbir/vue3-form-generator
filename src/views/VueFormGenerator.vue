@@ -76,8 +76,7 @@ export default {
 
     // Taking all fields are in single array to arrange validation rules
     const allFields = [...props.schema.fields ?? []];
-    if (props.schema.groups
-    ) {
+    if (props.schema.groups) {
       props.schema.groups.forEach(group => {
         group.fields.forEach(field => {
           allFields.push(field);

@@ -113,7 +113,6 @@ export default {
     }
 
     const handleChange = (key, value) => {
-      console.log(`key: ${key}`, `value: ${value}`);
       emit('listenHandelChange', key, value);
     };
 

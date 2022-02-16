@@ -8,7 +8,7 @@
                }"
                :key="option.value || option.label || option"
                :label="option.label || option"
-               @listenHandelChange="handleChange"
+               @listenHandelChange="(key, value) => {$emit('listenHandelChange', key, value);}"
                :formOptions="formOptions"
 
                :id="$attrs.id + '-' + (option.value || option.label || option) + '-' + index"
@@ -47,16 +47,6 @@ export default {
       default: '',
     },
     formOptions: Object,
-  },
-
-  setup(_, {emit}) {
-    const handleChange = (key, value) => {
-      emit('listenHandelChange', key, value);
-    };
-
-    return {
-      handleChange,
-    };
   },
 }
 </script>

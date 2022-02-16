@@ -43,10 +43,6 @@ export default {
     },
     formOptions: Object,
   },
-
-  setup() {
-
-  },
 }
 </script>
 
